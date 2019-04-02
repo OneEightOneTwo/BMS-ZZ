@@ -24,13 +24,6 @@ $(() => {
         });
     };
 
-
-    // $('#code').val(randomYZM(5));
-    // $('#code').css('color', randomColor(16));
-    // $('#code').on('click', () => {
-    //     $('#code').val(randomYZM(5));
-    //     $('#code').css('color', randomColor(16));
-    // });
     $('#btn').on('click', () => {
         let username = $.trim($('#username').val());
         let password = $.trim($('#password').val());

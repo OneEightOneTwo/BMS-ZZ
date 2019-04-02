@@ -77,12 +77,12 @@
         let user = localStorage.getItem('user');
         // console.log(user);
         if (!user) {
-            user = {}
+            user = {};
         } else {
             user = JSON.parse(user);
             $('#login').html('欢迎您  ' + user.username + '<a href="javascript:;">退出</a>');
             $('#login').css('color', 'purple');
-        }
+        };
 
 
         //未设置免登录
@@ -93,7 +93,7 @@
             user2 = JSON.parse(user2);
             $('#login').html('欢迎您  ' + user2.username + '<a href="javascript:;">退出</a>');
             $('#login').css('color', 'purple');
-        }
+        };
 
         //退出
         $('#login').on('click', 'a', function () {
@@ -117,10 +117,8 @@
             $('#user-add').on('click', function () {
                 alert('您没有权限哦');
             });
-        }
-
+        };
     </script>
 </body>
 
 </html>
-
