@@ -22,10 +22,13 @@ exports.create = (username, expiresIn = '7d') => {
 
 // 验证token
 exports.verify = (token) => {
+
     let res = false;
+
     try {
         res = jwt.verify(token, privateKey);//得出解密后的结果Object:{username:xxx...}
     } catch (err) {
+
         res = false;
     };
 

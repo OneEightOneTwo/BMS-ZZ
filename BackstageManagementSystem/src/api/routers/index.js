@@ -8,8 +8,13 @@ const koaBody = require('koa-body');
 var router = new Router();
 
 // 引入页面路由
-const loginRouter = require('./login');//注册
-const verifyRouter = require('./tokenverify');//验证
+const loginRouter = require('./login');//注册【1】
+const verifyRouter = require('./tokenverify');//验证【2】
+const userlistRouter = require('./userlist');//用户列表【3】
+const usereditRouter = require('./user_edit');//个人信息【4】
+const useraddRouter = require('./user_add');//添加用户【5】
+const orderRouter = require('./order');//订单列表【6】
+
 
 router.use(koaBody({
     // 支持formdata
@@ -31,7 +36,11 @@ router.use(koaBody({
     }
 }));
 
-router.use('/login', loginRouter.routes());
-router.use('/verify', verifyRouter.routes());
+router.use('/login', loginRouter.routes());//【1】
+router.use('/verify', verifyRouter.routes());//【2】
+router.use('/userlist', userlistRouter.routes());//【3】
+router.use('/useredit', usereditRouter.routes());//【4】
+router.use('/useradd', useraddRouter.routes());//【5】
+router.use('/order', orderRouter.routes());//【6】
 
 module.exports = router;

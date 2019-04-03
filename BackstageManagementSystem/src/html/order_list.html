@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>订单列表</title>
+	<link rel="stylesheet" href="../assets/layui/css/layui.css">
+	<link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<script src="../lib/jquery-1.10.1.min.js"></script>
+	<script src="../assets/layui/layui.js"></script>
+	<script src="../js/common.js"></script>
+</head>
+
+<body>
+	<div id="ManagerSystem">
+		<div class="left_menu">
+			<ul>后台管理系统</ul>
+			<dl>
+				<dt>商品管理</dt>
+				<dd>
+					<em>
+						<a href="../html/goodslist.html">商品列表</a>
+					</em>
+					<em>
+						<a href="../html/category.html">商品分类</a>
+					</em>
+					<em>
+						<a href="../html/addGoods.html">添加商品</a>
+					</em>
+				</dd>
+			</dl>
+			<dl>
+				<dt>用户管理</dt>
+				<dd>
+					<em><a href="../html/user_edit.html">个人信息</a></em>
+					<em><a id="user-list" href="../html/user_list.html">用户列表</a></em>
+					<em><a id="user-add" href="../html/user_add.html">添加用户</a></em>
+				</dd>
+			</dl>
+			<dl>
+				<dt>订单管理</dt>
+				<dd>
+					<em>
+						<a href="../html/order_list.html">订单列表</a>
+					</em>
+				</dd>
+			</dl>
+		</div>
+		<div class="main">
+			<div class="top_path">
+				<a href="../html/center.html">首页</a>
+				/
+				<a href="javascript:;">订单管理</a>
+				/
+				<a href="">订单列表</a>
+				<div id="login" class="login fr">
+					<!-- <a href="../index.html">退出</a> -->
+				</div>
+			</div>
+			<div id="content" class="main_bottom">
+				<div class="box">
+					<img src="../img/center/u70.png" class="u70_img1 u70" alt="">
+					<img src="../img/center/u70.png" class="u70_img2 u70" alt="">
+					<img src="../img/center/u70.png" class="u70_img3 u70" alt="">
+					<img src="../img/center/u70.png" class="u70_img4 u70" alt="">
+					<div class="core" id="core_content">
+						<table id="demo" lay-filter="test"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="shade" style="width: 100%;height: 100%;background: rgba(0, 0, 0, .6);position: absolute;top: 0;display: none;">
+		<div class="statusBox" style="width: 500px;height: 250px;margin: 200px auto;text-align:center;background: powderblue;overflow: hidden;">
+			<p style="margin-top: 80px;margin-bottom: 50px;">
+				<label for="status" style="font-size: 18px;vertical-align: middle;font-weight: bold;">修改订单状态:</label>
+				<select id="status" style="font-size: 18px;line-height: 20px;width: 150px;border-radius: 4px">
+					<option value="未付款">未付款</option>
+					<option value="付款成功">付款成功</option>
+					<option value="发货">发货</option>
+					<option value="签收">签收</option>
+					<option value="完成订单">完成订单</option>
+				</select>
+			</p>
+			<input type="button" name="" id="btnYes" value="确认" style="width: 50px;height: 25px;background: royalblue;color: #fff;border-radius: 2px;margin: 0 10px;">
+			<input type="button" name="" id="btnNo" value="取消" style="width: 50px;height: 25px;background: royalblue;color: #fff;border-radius: 2px;margin: 0 10px;">
+		</div>
+	</div>
+
+	<script>
+		(() => {
+			//设置了七天免登录
+			let user = localStorage.getItem('user');
+			// console.log(user);
+			if (!user) {
+				user = {}
+			} else {
+				user = JSON.parse(user);
+				$('#login').html('欢迎您  ' + user.username + '<a href="javascript:;">退出</a>');
+				$('#login').css('color', 'purple');
+			}
+
+			//未设置免登录
+			let user2 = sessionStorage.getItem('user');
+			if (!user2) {
+				user2 = {};
+			} else {
+				a
+				user2 = JSON.parse(user2);
+				$('#login').html('欢迎您  ' + user2.username + '<a href="javascript:;">退出</a>');
+				$('#login').css('color', 'purple');
+			}
+
+			//退出
+			$('#login').on('click', 'a', function () {
+				localStorage.clear();
+				sessionStorage.clear();
+				location.href = '../login.html';
+			});
+
+			//不同权限用户点击用户列表、添加用户操作
+			if (user.superUser || user2.superUser) {
+				$('#user-list').on('click', function () {
+					location.href = '../html/user_list.html';
+				});
+				$('#user-add').on('click', function () {
+					location.href = '../html/user_add.html';
+				});
+			} else {
+				$('#user-list').on('click', function () {
+					alert('您没有权限哦');
+				});
+				$('#user-add').on('click', function () {
+					alert('您没有权限哦');
+				});
+			}
+		})()
+	</script>
+
+	<script type="text/html" id="barDemo">
+			<!-- <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a> -->
+			<a class="layui-btn layui-btn-xs" lay-event="edit">修改状态</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
+
+	<script>
+		layui.config({
+			version: '1545041465443' //为了更新 js 缓存，可忽略
+		});
+
+		layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider'], function () {
+			var laydate = layui.laydate //日期
+				,
+				laypage = layui.laypage //分页
+				,
+				layer = layui.layer //弹层
+				,
+				table = layui.table //表格
+				,
+				carousel = layui.carousel //轮播
+				,
+				upload = layui.upload //上传
+				,
+				element = layui.element //元素操作
+				,
+				slider = layui.slider //滑块
+
+			//向世界问个好
+			// layer.msg('Hello World');
+
+			//监听Tab切换
+			element.on('tab(demo)', function (data) {
+				layer.tips('切换了 ' + data.index + '：' + this.innerHTML, this, {
+					tips: 1
+				});
+			});
+
+			//执行一个 table 实例
+			table.render({
+				elem: '#demo',
+				height: 525,
+				url: '/order/renderAll' //数据接口
+				,
+				title: '用户表',
+				page: true //开启分页
+				,
+				limit: 10
+				// , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+				,
+				totalRow: false //开启合计行
+				,
+				cols: [
+					[ //表头
+						{
+							field: 'code',
+							title: '订单编号',
+							width: 180,
+							fixed: 'left',
+							sort: true
+						}, {
+							field: 'goods_name',
+							title: '商品名称',
+							width: 140
+						}, {
+							field: 'num',
+							title: '数量',
+							width: 80,
+							totalRow: true
+						}, {
+							field: 'price',
+							title: '价格（元）',
+							width: 120
+						}, {
+							field: 'freight',
+							title: '运费',
+							width: 80,
+							totalRow: true
+						}, {
+							field: 'totalprice',
+							title: '结算价格',
+							width: 150
+						}, {
+							field: 'status',
+							title: '订单状态',
+							width: 150
+						}, {
+							field: 'time',
+							title: '注册时间',
+							width: 150,
+							sort: true,
+							totalRow: true
+						}, {
+							fixed: 'right',
+							title: '操作',
+							width: 165,
+							align: 'center',
+							toolbar: '#barDemo'
+						}
+					]
+				]
+			});
+
+			//监听头工具栏事件
+			table.on('toolbar(test)', function (obj) {
+				var checkStatus = table.checkStatus(obj.config.id),
+					data = checkStatus.data; //获取选中的数据
+				switch (obj.event) {
+					case 'add':
+						layer.msg('添加');
+						break;
+					case 'update':
+						if (data.length === 0) {
+							layer.msg('请选择一行');
+						} else if (data.length > 1) {
+							layer.msg('只能同时编辑一个');
+						} else {
+							// layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
+							//   edit(checkStatus.data[0].username);
+						}
+						break;
+					case 'delete':
+						if (data.length === 0) {
+							layer.msg('请选择一行');
+						} else {
+							layer.msg('删除');
+							let arr = checkStatus.data.map(function (item) {
+								return item.username;
+							});
+							// console.log(arr);
+							//   Delete(arr);
+
+						}
+						break;
+				};
+			});
+
+			//监听行工具事件
+			table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+				var data = obj.data //获得当前行数据
+					,
+					layEvent = obj.event; //获得 lay-event 对应的值
+				if (layEvent === 'edit') {
+					$('#shade').show(); //修改框开启
+					$('#status').val(data.status); //获取订单当前状态显示
+					//点击确认
+					$('#btnYes').on('click', function () {
+						if ($('#status').val() == data.status) { //如果未修改直接关闭
+							$('#shade').hide();
+						} else { //修改数据库
+							let newStatus = $('#status').val();
+							$.ajax({
+								type: 'POST',
+								url: '/order/updateStatus',
+								data: 'code=' + data.code + '&status=' + newStatus,
+								success: function (res) {
+									// console.log(res);
+									if (res.code == 200) {
+										// $('#shade').hide();
+										location.reload();
+
+									}
+								}
+							});
+						}
+					});
+					//点击取消关闭
+					$('#btnNo').on('click', function () {
+						$('#shade').hide();
+					});
+
+				} else if (layEvent === 'del') {
+					layer.confirm('真的删除行么', function (index) {
+						obj.del(); //删除对应行（tr）的DOM结构
+						layer.close(index);
+						//向服务端发送删除指令
+						$.ajax({
+							type: 'POST',
+							url: '/order/delete',
+							data: "code=" + data.code,
+							success: function (res) {
+								// console.log(res);
+								// if(res.code == 200){
+								//   // location.reload();
+								// }
+							}
+						});
+					});
+				} else if (layEvent === 'edit') {
+					// layer.msg('编辑操作');
+					//   edit(obj.data.username);
+				}
+			});
+
+			//分页
+			laypage.render({
+				elem: 'pageDemo' //分页容器的id
+				,
+				count: 5 //总页数
+				,
+				skin: '#1E9FFF' //自定义选中色值
+				//,skip: true //开启跳页
+				,
+				jump: function (obj, first) {
+					if (!first) {
+						layer.msg('第' + obj.curr + '页', {
+							offset: 'b'
+						});
+					}
+				}
+			});
+
+			//上传
+			upload.render({
+				elem: '#uploadDemo',
+				url: '123.txt' //上传接口
+				,
+				done: function (res) {
+					console.log(res)
+				}
+			});
+
+			slider.render({
+				elem: '#sliderDemo',
+				input: true //输入框
+			});
+		});
+	</script>
+</body>
+
+</html>
