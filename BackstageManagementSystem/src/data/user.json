@@ -1,0 +1,5 @@
+{"_id":{"$oid":"5ca20d1502a59d5891d98c96"},"username":"Elena","password":"123456","nike":"sunflower","gender":"女","phone":"13112341234","email":"123@qq.com","time":"1554274730842","superUser":"yes"}
+{"_id":{"$oid":"5ca20d1502a59d5891d98c9a"},"username":"hql","password":"12345","nike":"classmates","gender":"boy","phone":"13412341234","email":"123@qq.com","time":"1554274730842","superUser":"no"}
+{"_id":{"$oid":"5ca4595c8161032ac0d5f196"},"username":"admin","password":"123456","nike":"超级大暖男","gender":"男","phone":"13222222222","email":"123@qq.com","time":"1554274651476"}
+{"_id":{"$oid":"5ca459ab8161032ac0d5f197"},"username":"yaoyao","password":"123456","nike":"老姚","gender":"男","phone":"13823452345","email":"156@qq.com","time":"1554274730842"}
+{"_id":{"$oid":"5ca45a628161032ac0d5f198"},"username":"xiaolonglong","password":"123456","nike":"龙龙","gender":"不详","phone":"16712345678","email":"123@qq.com","time":"1554274913797"}
