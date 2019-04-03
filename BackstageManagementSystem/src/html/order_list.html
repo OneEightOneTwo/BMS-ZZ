@@ -83,7 +83,7 @@
 					<option value="付款成功">付款成功</option>
 					<option value="发货">发货</option>
 					<option value="签收">签收</option>
-					<option value="完成订单">完成订单</option>
+					<option value="完成订单">完成订单</option>‘
 				</select>
 			</p>
 			<input type="button" name="" id="btnYes" value="确认" style="width: 50px;height: 25px;background: royalblue;color: #fff;border-radius: 2px;margin: 0 10px;">
@@ -301,7 +301,6 @@
 									if (res.code == 200) {
 										// $('#shade').hide();
 										location.reload();
-
 									}
 								}
 							});
@@ -349,7 +348,7 @@
 						layer.msg('第' + obj.curr + '页', {
 							offset: 'b'
 						});
-					}
+					};
 				}
 			});
 
@@ -359,7 +358,7 @@
 				url: '123.txt' //上传接口
 				,
 				done: function (res) {
-					console.log(res)
+					console.log(res);
 				}
 			});
 

@@ -11,11 +11,11 @@ router.get('/renderAll', async (ctx, next) => {
     let res2 = await db.find('orderlist', {}, page, parseInt(limit));
 
     // console.log(res2);
-    res2.map(function (item) {
-        item.totalprice = ((item.price) * (item.num) + (item.freight) * 1).toFixed(2);
-        item.price = (item.price).toFixed(2);
-        item.freight = (item.freight).toFixed(2);
-    });
+    // res2.map(function (item) {
+    //     item.totalprice = ((item.price) * (item.num) + (item.freight) * 1).toFixed(2);
+    //     item.price = (item.price).toFixed(2);
+    //     item.freight = (item.freight).toFixed(2);
+    // });
 
     if (res2) {
         ctx.body = {
@@ -23,13 +23,13 @@ router.get('/renderAll', async (ctx, next) => {
             msg: "",
             count: res.length,
             data: res2
-        }
+        };
     } else {
         ctx.body = {
             code: 100,
             msg: 'fail'
-        }
-    }
+        };
+    };
     // console.log(ctx.body);
 });
 
@@ -50,8 +50,8 @@ router.post('/updateStatus', async (ctx, next) => {
         ctx.body = {
             code: 200,
             msg: '修改成功'
-        }
-    }
+        };
+    };
 });
 
 module.exports = router;
