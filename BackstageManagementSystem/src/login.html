@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="assets/layui/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="css/login.css" />
+	<script src="lib/jquery-1.10.1.min.js"></script>
+	<script src="lib/jquery.cookie.js"></script>
+	<script src="lib/mycool.js"></script>
+	<script src="js/login.js"></script>
+</head>
+
+<body>
+	<div id="box">
+		<h1>后台管理系统</h1>
+		<div class="login_div">
+			<label class="layui-form-label">账号：</label>
+			<div class="layui-input-block">
+				<input type="text" id="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+
+		<div class="login_div">
+			<label class="layui-form-label">密码：</label>
+			<div class="layui-input-block">
+				<input type="password" id="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+
+		<div class="login_checked">
+			<input type="checkbox" id="checked"><span>七天免登陆</span>
+			<a href="###">忘记密码？</a>
+		</div>
+		<p class="hint">账号或密码错误，请重新输入</p>
+		<button class="layui-btn layui-btn-fluid" id="btn">登入</button>
+	</div>
+	<div class="shade"></div>
+</body>
+
+</html>

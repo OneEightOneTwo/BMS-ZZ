@@ -15,6 +15,13 @@ const usereditRouter = require('./user_edit');//个人信息【4】
 const useraddRouter = require('./user_add');//添加用户【5】
 const orderRouter = require('./order');//订单列表【6】
 
+// 大哥
+const goodslistRouter = require('./goodslist');//商品列表【7】
+const addGoodsRouter = require('./addGoods');//添加商品【8】
+const editGoodsRouter = require('./editGoods');//商品编辑【9】
+const categoryRouter = require('./category');//商品分类【10】
+
+
 
 router.use(koaBody({
     // 支持formdata
@@ -42,5 +49,11 @@ router.use('/userlist', userlistRouter.routes());//【3】
 router.use('/useredit', usereditRouter.routes());//【4】
 router.use('/useradd', useraddRouter.routes());//【5】
 router.use('/order', orderRouter.routes());//【6】
+
+// 大哥
+router.use('/goodslist', goodslistRouter.routes());//【7】
+router.use('/addGoods', addGoodsRouter.routes());//【8】
+router.use('/editGoods', editGoodsRouter.routes());//【9】
+router.use('/category', categoryRouter.routes());//【10】
 
 module.exports = router;
